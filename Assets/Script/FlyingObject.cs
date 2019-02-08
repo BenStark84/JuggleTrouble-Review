@@ -11,6 +11,7 @@ public class FlyingObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //Sets initial location and rotation of flying objects
         direction = Random.Range(0, 2) * 2 - 1;
         velocity = Random.Range(velocityRange.x, velocityRange.y)*direction;
         screenEdge = PlayerController.screenHalfWidth;
@@ -29,7 +30,7 @@ public class FlyingObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        //Moves the object across the screen
         transform.Translate(Vector2.right * velocity * Time.deltaTime,Space.World);
 
         if ((transform.position.x > screenEdge+2 && velocity > 0) || (transform.position.x < -screenEdge-2 && velocity < 0))

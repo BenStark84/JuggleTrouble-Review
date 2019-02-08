@@ -17,6 +17,9 @@ public class BrickManager : MonoBehaviour {
 	void Start () {
         PlayerScore = 0f;
         int y = 0;
+        //This is intended to spawn a set of bricks in each row for four rows.
+        //Each row has it's own parent object to hold the Audiotrack for the game music
+        //Game music changes each time the first brick is broken from a row
         foreach (Transform child in transform)
         { 
            for(float x=0; x<6+y%2; x++)
@@ -34,6 +37,7 @@ public class BrickManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //Calls a brick explosion
         if (BombController.gameOver == true && explosionOver == false)
         {
             BrickExplosion();
@@ -43,6 +47,7 @@ public class BrickManager : MonoBehaviour {
 
     public void BrickExplosion()
     {
+        //Updates the rigidbody and applies a force to all remaining bricks when the game is over
         foreach (Transform brickrow in transform)
         {
             foreach (Transform child in brickrow.transform)
@@ -58,6 +63,8 @@ public class BrickManager : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        //manages the player score as the players score is based on the number of bricks remaining.
+        //Is there a more efficient way to get the count of bricks than loading all bricks into an array
         if (!BombController.gameOver)
         {
 

@@ -25,13 +25,14 @@ public class GameOver : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //The System Action called from the bomb controller
         FindObjectOfType<BombController> ().OnBombBlast += OnGameOver;
         
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+        //This should probably be removed as it has been replaced by buttons
         if (BombController.gameOver)
             if (Input.GetKey(KeyCode.Space))
             {
@@ -65,10 +66,13 @@ public class GameOver : MonoBehaviour {
 
     void OnGameOver()
     {
+
         gameOverScreen.SetActive(true);
         gameScreen.SetActive(false);
+        //Stops the current music and plays the game over music
         BombTrigger.trackNumber.Stop();
         BombTrigger.audiotrack = 0;
+        //pulls the highscore and compares to the current score
         int highScore = PlayerPrefs.GetInt("Highscore", 0);
         Debug.Log("High Score: " + highScore);
         int newScore = Mathf.FloorToInt(BrickManager.PlayerScore);
@@ -83,6 +87,7 @@ public class GameOver : MonoBehaviour {
             Debug.Log("newScore: " + newScore);
             HighScoreLine.text = "High Score: " + highScore.ToString("n0");
         }
+        //displays new high score
         Score.text = newScore.ToString("n0");
         BombController.gameOver = true;
     }

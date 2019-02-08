@@ -12,6 +12,7 @@ public class BombTrigger : MonoBehaviour {
 
     void Update () {
                 //if bomb is off screen start gameOver
+                //I could probably just call onbombblast from here instead of setting the boolean for the controller
                 if (transform.position.y < -PlayerController.orthographicSize - 1)
                     {
                     BombController.blastPoint = transform.position;
@@ -28,16 +29,22 @@ public class BombTrigger : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D brickCollision)
     {
+        //Check if the bomb hit the wall bricks
+        //I find even with a rigidbody on the bricks it does not like OnCollisionEnter2D
         if (brickCollision.gameObject.tag == "WallBrick")
         {
-            int bombs = GameObject.FindGameObjectsWithTag("Bomb").Length;
+            //Count bombs if less than 3 bombs on the screen spawn a new bomb
+            int bombs = transform.parent.childCount;
             if (bombs < 3)
             {
                 BombController.spawnBombNow = true;
             }
-
+            //play the explosion sound effect attached to the bomb controller
             transform.parent.gameObject.GetComponent<AudioSource>().Play();
 
+            //swap between audiotracks based on the first brick broken from each row
+            //There seems there has to be a more efficient way
+            //Maybe an audiosource with multiple tracks and a mixer to swap between scenes?
             if (audiotrack == 0)
             {
                 trackNumber = GameObject.Find("BrickManager").GetComponent<AudioSource>();
@@ -74,15 +81,19 @@ public class BombTrigger : MonoBehaviour {
                 trackNumber.loop = true;
                 audiotrack++;
             }
-
+            //create the brick exploding effect
             Instantiate(brickExplosionPrefab, new Vector3(brickCollision.transform.position.x, brickCollision.transform.position.y, -10), Quaternion.identity);
+            //destroy the brick
             Destroy(brickCollision.gameObject);
+            //destroy the bomb
             Destroy(gameObject);
+            //Possibly add the effect of the bomb exploding and the brick particles moving away from the bomb
+            //but how?
         }
     }
     private void OnCollisionEnter2D(Collision2D obstacle)
     {
-        
+        //play a sound if the bomb hits a flying obstacle
         if (obstacle.gameObject.tag == "FlyingObject")
         {     
             AudioSource collisionSound = obstacle.gameObject.GetComponent<AudioSource>();

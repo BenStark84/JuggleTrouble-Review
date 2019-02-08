@@ -22,6 +22,8 @@ public class WallSpawner : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //Spawns Walls at the start of the game to keep the bombs on screen
+        //Possibly something more efficient?
         aspectRatio = Camera.main.aspect;
         orthographicSize = Camera.main.orthographicSize;
         float screenHalfWidth = aspectRatio * orthographicSize;
@@ -35,9 +37,4 @@ public class WallSpawner : MonoBehaviour {
         newRoof.transform.localScale = new Vector3(screenHalfWidth * 2, 0.1f, 0);
         newRoof.transform.parent = WallManager.transform;
             }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

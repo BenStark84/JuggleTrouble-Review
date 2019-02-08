@@ -17,6 +17,7 @@ public class ObstacleSpawner : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //Set the Y axis spawn area and the obstacle spawn time
         ObstacleManager = GameObject.Find("ObstacleManager");
         spawnRange = new Vector2(0.2f, 0.9f);
         difficulty = PlayerPrefs.GetInt("difficulty", 0);
@@ -28,6 +29,7 @@ public class ObstacleSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //use timer to spawn obstacles
         if (difficulty > 0)
         {
             if (obstacleSpawnTimer > obstacleSpawnTime)
@@ -40,6 +42,7 @@ public class ObstacleSpawner : MonoBehaviour {
 
     void SpawnObstacle()
     {
+        //Spawn the objects by selecting randomly from an array and a random Y
         obstacle = obstacleArray[Random.Range(0, obstacleArray.Length)];
         spawnHeight = Random.Range(PlayerController.orthographicSize*spawnRange.x, PlayerController.orthographicSize*spawnRange.y);
         spawnPoint = -(PlayerController.screenHalfWidth + 2);

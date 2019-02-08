@@ -18,19 +18,23 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //Find the world size
         mainCamera = Camera.main;
         orthographicSize = mainCamera.orthographicSize;
         aspectRatio = mainCamera.aspect;
         float halfPlayerWidth = transform.localScale.x / 2f;
         screenHalfWidth = aspectRatio * orthographicSize;
         screenHalfWidthInWorldUnits = screenHalfWidth + halfPlayerWidth;
+        //set the touch location to the shield location as it should not move up and down
         touchLocation.y = transform.position.y;
+        //determine the appropriate touchscreen controls
         controlSchema = PlayerPrefs.GetInt("control", 2);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Set the movement amount per frame
         movement = speed * Time.deltaTime;
 #if UNITY_EDITOR || UNITY_STANDALONE 
         if (Input.GetAxisRaw("Horizontal") != 0)
@@ -50,6 +54,8 @@ public class PlayerController : MonoBehaviour
         }
 #endif
 #if UNITY_IOS || UNITY_ANDROID
+        //This is an ARPG Control
+        //The shield should move to where the player touched on each new touch
         if (controlSchema == 0)
         {
             if (Input.GetMouseButtonDown(0))
@@ -59,7 +65,8 @@ public class PlayerController : MonoBehaviour
             }
             transform.position = Vector2.MoveTowards(transform.position, touchLocation, movement);
         }
-
+        //This is a d-pad control
+        //Touching the left or right side of the screen should move the shield left or right
         if (controlSchema == 1)
         {
             if (Input.GetMouseButton(0))
@@ -89,7 +96,8 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector2(-screenHalfWidthInWorldUnits, transform.position.y);
             }
         }
-
+        //This is a swipe/drag control
+        //The shield should move towards where the players finger is touching
         if (controlSchema == 2)
         {
 

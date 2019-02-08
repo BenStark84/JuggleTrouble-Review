@@ -18,6 +18,7 @@ public class OptionsMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        //These are the game options. How controls work, what's the difficulty, and SoundFX and Sound
         controllSchema.value = PlayerPrefs.GetInt("control", 2);
         difficultySet.value = PlayerPrefs.GetInt("difficulty", 1);
         int soundFXKey = PlayerPrefs.GetInt("soundFX", 1);
