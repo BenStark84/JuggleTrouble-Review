@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 0
     16:9: 0
     Others: 0
-  bundleVersion: 0.4
+  bundleVersion: 0.5
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -154,8 +154,9 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.NGNStudios.JuggleTrouble
     Standalone: com.Company.ProductName
-  buildNumber: {}
-  AndroidBundleVersionCode: 4
+  buildNumber:
+    Standalone: 5
+  AndroidBundleVersionCode: 5
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -244,7 +245,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: G:/Users/Ben/Unity/JuggleTrouble/NGNStudios.keystore
+  AndroidKeystoreName: E:/NGNStudios.keystore
   AndroidKeyaliasName: juggletrouble
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
