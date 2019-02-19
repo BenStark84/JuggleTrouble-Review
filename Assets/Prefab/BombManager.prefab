@@ -149,3 +149,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bomb: {fileID: 4937881922817392, guid: 41e04f4a2041f4b4e86815be9f6806fd, type: 2}
   bombSpawnTime: 6.54
+  brickExplosionPrefab: {fileID: 1162679126232008, guid: e5f8643a5799783458890220a290f4cf,
+    type: 2}

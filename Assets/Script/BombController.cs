@@ -8,17 +8,13 @@ public class BombController : MonoBehaviour {
     GameObject BombManager;
     public static bool spawnBombNow = false;
     public float bombSpawnTime = 10f;
-    public static bool gameOver = false;
-    public static Vector3 blastPoint;
-    public static bool bombBlast = false;
-    public event System.Action OnBombBlast;
     float bombSpawnTimer;
+    public GameObject brickExplosionPrefab;
 
     // Use this for initialization
     void Start() {
-        //set the BombManager gameobject for transforms
+        //set the BombManager gameobject for parenting bombs
         BombManager = GameObject.Find("BombManager");
-        //spawn the first bomb
         spawnBombNow = true;
     }
 
@@ -31,26 +27,35 @@ public class BombController : MonoBehaviour {
             SpawnBomb();
             spawnBombNow = false;
         }
-        //this pulls the bombBlast Boolean to determine if a bomb has gone off the bottom of the screen
-        //This should probably be moved to the BombTrigger script. I originanlly intended it to do more.
-        if (bombBlast && !gameOver)
-        {
-            if (OnBombBlast != null)
-            {
-                OnBombBlast();
-            }
-        }
         bombSpawnTimer += Time.deltaTime;
     }
 
     void SpawnBomb()
     {
         //Spawns a new bomb if gameover is false
-        if (!gameOver)
-        {
             var newbomb = Instantiate(bomb, new Vector3(0, 4.5f, 0), Quaternion.identity);
             newbomb.transform.parent = BombManager.transform;
             bombSpawnTimer = 0;
+    }
+
+    public void bombTriggered(GameObject bombChild, Collider2D brickChild)
+    {
+        //determine if a new bomb needs to be spawned
+        int bombs = gameObject.transform.childCount;
+        if (bombs < 3)
+        {
+            spawnBombNow = true;
         }
+        //Play the Explosion and Manage AudioTracks
+        GetComponent<AudioSource>().Play();
+        FindObjectOfType<SoundManager>().ChangeTrack(brickChild.transform.position.y);
+        //create the brick exploding effect, destroy the brick and bomb
+        Instantiate(brickExplosionPrefab, new Vector3(brickChild.transform.position.x, brickChild.transform.position.y, -10), Quaternion.identity);
+        Destroy(brickChild.gameObject);
+        Destroy(bombChild);
+    }
+    public void BombControllerGameOver()
+    {
+            Destroy(gameObject);
     }
 }

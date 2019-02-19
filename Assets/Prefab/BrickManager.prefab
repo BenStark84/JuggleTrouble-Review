@@ -64,5 +64,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Brick: {fileID: 4156152160562872, guid: 131daa25008f8854590d77c5dfee0554, type: 2}
-  blastForce: {x: -0.5, y: 6}
+  blastForce: {x: -0.5, y: 20}
   playerScoreText: {fileID: 0}

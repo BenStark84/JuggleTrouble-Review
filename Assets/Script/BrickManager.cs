@@ -8,68 +8,45 @@ public class BrickManager : MonoBehaviour {
     public Transform Brick;
     Vector3 brickBlastHeading;
     public Vector2 blastForce = new Vector2(-10,100);
-    bool explosionOver = false;
-    public static float PlayerScore = 0f;
+    //bool explosionOver = false;
+    public static float playerScore = 0f;
     public Text playerScoreText;
     int countbricks;
+    Vector3[] brickPoints = CameraBounds.bricklocations;
+    Vector2[] bottomPoints = CameraBounds.bottomPoints;
+    EdgeCollider2D edgeCollider;
+    int startBricks;
 
-	// Use this for initialization
-	void Start () {
-        PlayerScore = 0f;
-        int y = 0;
-        //This is intended to spawn a set of bricks in each row for four rows.
-        //Each row has it's own parent object to hold the Audiotrack for the game music
-        //Game music changes each time the first brick is broken from a row
-        foreach (Transform child in transform)
-        { 
-           for(float x=0; x<6+y%2; x++)
-            {
-                float xcord = (x - 3) + (((y+1) % 2) * 0.5f);
-                float ycord = -3.8f - y*0.3f;
-                var newBrick = Instantiate(Brick, new Vector3(xcord, ycord, 0), Quaternion.identity);
-                newBrick.transform.parent = child.transform;
-            }
-            y++;
-        }
-       
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        //Calls a brick explosion
-        if (BombController.gameOver == true && explosionOver == false)
+    // Use this for initialization
+    void Start () {
+        startBricks = brickPoints.Length;
+        playerScore = 0f;
+       for(int i = 0; i < brickPoints.Length; i++)
         {
-            BrickExplosion();
+            var newBrick = Instantiate(Brick, brickPoints[i], Quaternion.identity);
+            newBrick.transform.parent = transform;
         }
-		
-	}
-
-    public void BrickExplosion()
+        edgeCollider = gameObject.GetComponent<EdgeCollider2D>();
+        edgeCollider.points = bottomPoints;
+    }
+	
+    public void BrickExplosion(Vector3 blastPoint)
     {
         //Updates the rigidbody and applies a force to all remaining bricks when the game is over
-        foreach (Transform brickrow in transform)
-        {
-            foreach (Transform child in brickrow.transform)
+        foreach (Transform child in transform)
             {
-                brickBlastHeading = child.position - BombController.blastPoint;
+                brickBlastHeading = child.position - blastPoint;
                 brickBlastHeading = new Vector3(brickBlastHeading.x, brickBlastHeading.y, 0);
                 child.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                child.GetComponent<Rigidbody2D>().velocity = (Vector2.Scale(brickBlastHeading, blastForce));
+                child.GetComponent<Rigidbody2D>().AddForce(Vector2.Scale(brickBlastHeading, blastForce), ForceMode2D.Impulse);
             }
-        }
-        explosionOver = true;
+       // explosionOver = true;
     }
 
-    private void FixedUpdate()
+    public void ScoreCalculator(int bombsCount)
     {
-        //manages the player score as the players score is based on the number of bricks remaining.
-        //Is there a more efficient way to get the count of bricks than loading all bricks into an array
-        if (!BombController.gameOver)
-        {
-
-            PlayerScore = (PlayerScore + (gameObject.GetComponentsInChildren<Transform>().Length * Time.fixedUnscaledDeltaTime)*5f);
-            playerScoreText.text = "Score: " + PlayerScore.ToString("n0");
-        }
+        int bricksRemaining = transform.childCount;
+        playerScore += Mathf.Abs(startBricks / 2 - bricksRemaining) * bombsCount;
+        playerScoreText.text = "Score: " + playerScore.ToString("n0");
     }
 }
