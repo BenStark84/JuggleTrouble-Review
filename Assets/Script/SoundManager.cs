@@ -20,8 +20,6 @@ public class SoundManager : MonoBehaviour {
 
     public void ChangeTrack(float objectHeight)
     {
-        Debug.Log("ObjectHeight: " + objectHeight);
-        Debug.Log("TrackHeight: " + trackLevels[currentTrack]);
         if (objectHeight < trackLevels[currentTrack])
         {
             currentTrack++;

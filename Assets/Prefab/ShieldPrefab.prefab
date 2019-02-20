@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4393775771067978}
   - component: {fileID: 212658029902213694}
-  - component: {fileID: 68846021908039930}
   m_Layer: 0
   m_Name: shield_face
   m_TagString: Player
@@ -37,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4147128581596942}
   - component: {fileID: 114562582125501440}
+  - component: {fileID: 68996066110129684}
   m_Layer: 0
   m_Name: ShieldPrefab
   m_TagString: Player
@@ -101,12 +101,12 @@ Transform:
   m_Father: {fileID: 4147128581596942}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &68846021908039930
+--- !u!68 &68996066110129684
 EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028313791623788}
+  m_GameObject: {fileID: 1364605351701592}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: bd4d89a3062b85441ba65c9ecfa96f59, type: 2}
@@ -138,6 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
+  bombManager: {fileID: 1655327331660188, guid: 635e6f411c349ca49a1e186f0998cb95,
+    type: 2}
 --- !u!212 &212658029902213694
 SpriteRenderer:
   m_ObjectHideFlags: 1

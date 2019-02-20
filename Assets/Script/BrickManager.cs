@@ -49,4 +49,19 @@ public class BrickManager : MonoBehaviour {
         playerScore += Mathf.Abs(startBricks / 2 - bricksRemaining) * bombsCount;
         playerScoreText.text = "Score: " + playerScore.ToString("n0");
     }
+
+    private void OnTriggerEnter2D(Collider2D bombCollision)
+    {
+
+        if (bombCollision.gameObject.tag == "Bomb")
+        {
+            //call the gameover scripts
+            Vector3 blastPoint = bombCollision.transform.position;
+            BrickExplosion(blastPoint);
+            FindObjectOfType<BombController>().BombControllerGameOver();
+            FindObjectOfType<GameOver>().OnGameOver();
+            FindObjectOfType<SoundManager>().ChangeTrack(bombCollision.transform.position.y);
+        }
+
+    }
 }

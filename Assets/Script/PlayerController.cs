@@ -110,4 +110,15 @@ public class PlayerController : MonoBehaviour
         }
 #endif    
     }
+    private void OnCollisionEnter2D(Collision2D obstacle)
+    {
+        //play a sound if the bomb hits a flying obstacle
+
+        if (obstacle.gameObject.tag == "Bomb")
+        {
+            GameObject bombManager = GameObject.Find("BombManager");
+            int bombs = bombManager.transform.childCount;
+            FindObjectOfType<BrickManager>().ScoreCalculator(bombs);
+        }
+    }
 }

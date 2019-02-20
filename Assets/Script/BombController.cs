@@ -30,7 +30,7 @@ public class BombController : MonoBehaviour {
         bombSpawnTimer += Time.deltaTime;
     }
 
-    void SpawnBomb()
+    public void SpawnBomb()
     {
         //Spawns a new bomb if gameover is false
             var newbomb = Instantiate(bomb, new Vector3(0, 4.5f, 0), Quaternion.identity);
@@ -38,7 +38,7 @@ public class BombController : MonoBehaviour {
             bombSpawnTimer = 0;
     }
 
-    public void bombTriggered(GameObject bombChild, Collider2D brickChild)
+    public void bombTriggered(GameObject brickChild, Collider2D bombChild)
     {
         //determine if a new bomb needs to be spawned
         int bombs = gameObject.transform.childCount;
@@ -51,8 +51,8 @@ public class BombController : MonoBehaviour {
         FindObjectOfType<SoundManager>().ChangeTrack(brickChild.transform.position.y);
         //create the brick exploding effect, destroy the brick and bomb
         Instantiate(brickExplosionPrefab, new Vector3(brickChild.transform.position.x, brickChild.transform.position.y, -10), Quaternion.identity);
-        Destroy(brickChild.gameObject);
-        Destroy(bombChild);
+        Destroy(brickChild);
+        Destroy(bombChild.gameObject);
     }
     public void BombControllerGameOver()
     {
