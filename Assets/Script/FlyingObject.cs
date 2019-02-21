@@ -32,12 +32,6 @@ public class FlyingObject : MonoBehaviour {
     void Update() {
         //Moves the object across the screen
         transform.Translate(Vector2.right * velocity * Time.deltaTime, Space.World);
-
-        if ((transform.position.x > screenEdge + 2 && velocity > 0) || (transform.position.x < -screenEdge - 2 && velocity < 0))
-        {
-            Destroy(gameObject);
-
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -50,6 +44,10 @@ public class FlyingObject : MonoBehaviour {
                 gameObject.gameObject.GetComponent<AudioSource>().Play();
             }
         }
+    }
 
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

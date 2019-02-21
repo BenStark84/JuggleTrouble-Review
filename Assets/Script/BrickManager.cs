@@ -43,10 +43,12 @@ public class BrickManager : MonoBehaviour {
        // explosionOver = true;
     }
 
-    public void ScoreCalculator(int bombsCount)
+    public void ScoreCalculator(int bombsCount, float aliveTime)
     {
         int bricksRemaining = transform.childCount;
-        playerScore += Mathf.Abs(startBricks / 2 - bricksRemaining) * bombsCount;
+        Debug.Log("BrickScore: "+(Mathf.Abs(startBricks / 2 - bricksRemaining) + 1));
+        Debug.Log("BombScore: "+(bombsCount * Mathf.RoundToInt(aliveTime)));
+        playerScore += ((Mathf.Abs(startBricks / 2 - bricksRemaining)+1) * (bombsCount * Mathf.RoundToInt(aliveTime)));
         playerScoreText.text = "Score: " + playerScore.ToString("n0");
     }
 

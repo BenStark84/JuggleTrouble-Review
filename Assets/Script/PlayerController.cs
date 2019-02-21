@@ -14,7 +14,15 @@ public class PlayerController : MonoBehaviour
     int controlSchema;
     int direction;
     Camera mainCamera;
+    GameObject bombManager;
+    BrickManager brickManager;
     // Use this for initialization
+
+    private void Awake()
+    {
+        bombManager = GameObject.Find("BombManager");
+        brickManager = GameObject.Find("BrickManager").GetComponent<BrickManager>();
+    }
 
     void Start()
     {
@@ -112,13 +120,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D obstacle)
     {
-        //play a sound if the bomb hits a flying obstacle
 
         if (obstacle.gameObject.tag == "Bomb")
         {
-            GameObject bombManager = GameObject.Find("BombManager");
             int bombs = bombManager.transform.childCount;
-            FindObjectOfType<BrickManager>().ScoreCalculator(bombs);
+            float aliveTime = 0;
+            foreach (Transform bomb in bombManager.transform)
+            {
+                aliveTime = bomb.GetComponent<BombTrigger>().activeTime;
+
+            }
+            brickManager.ScoreCalculator(bombs, aliveTime);
         }
     }
 }
