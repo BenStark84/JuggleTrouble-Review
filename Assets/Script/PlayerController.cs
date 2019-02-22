@@ -18,14 +18,10 @@ public class PlayerController : MonoBehaviour
     BrickManager brickManager;
     // Use this for initialization
 
-    private void Awake()
+    void Start()
     {
         bombManager = GameObject.Find("BombManager");
         brickManager = GameObject.Find("BrickManager").GetComponent<BrickManager>();
-    }
-
-    void Start()
-    {
         //Find the world size
         mainCamera = Camera.main;
         orthographicSize = mainCamera.orthographicSize;

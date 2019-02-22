@@ -7,9 +7,9 @@ public class BombTrigger : MonoBehaviour
     public float activeTime { get; private set; }
     BombController bombController;
 
-    private void Awake()
+    private void Start()
     {
-        bombController = GameObject.Find("bombController").GetComponent<BombController>();
+        bombController = GameObject.Find("BombManager").GetComponent<BombController>();
     }
     private void OnBecameInvisible()
     {

@@ -20,14 +20,12 @@ public class BrickManager : MonoBehaviour {
     GameOver gameOver;
     SoundManager soundManager;
 
-    private void Awake()
-    {
-        bombController = GameObject.Find("BombController").GetComponent<BombController>();
-        gameOver = GameObject.Find("GameOver").GetComponent<GameOver>();
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-    }
+
     // Use this for initialization
     void Start () {
+        bombController = GameObject.Find("BombManager").GetComponent<BombController>();
+        gameOver = GameObject.Find("GameOverManager").GetComponent<GameOver>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         startBricks = brickPoints.Length;
         playerScore = 0f;
        for(int i = 0; i < brickPoints.Length; i++)
@@ -55,8 +53,6 @@ public class BrickManager : MonoBehaviour {
     public void ScoreCalculator(int bombsCount, float aliveTime)
     {
         int bricksRemaining = transform.childCount;
-        Debug.Log("BrickScore: "+(Mathf.Abs(startBricks / 2 - bricksRemaining) + 1));
-        Debug.Log("BombScore: "+(bombsCount * Mathf.RoundToInt(aliveTime)));
         playerScore += ((Mathf.Abs(startBricks / 2 - bricksRemaining)+1) * (bombsCount * Mathf.RoundToInt(aliveTime)));
         playerScoreText.text = "Score: " + playerScore.ToString("n0");
     }

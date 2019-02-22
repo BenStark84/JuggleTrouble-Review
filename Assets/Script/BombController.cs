@@ -12,14 +12,10 @@ public class BombController : MonoBehaviour {
     public GameObject brickExplosionPrefab;
     SoundManager soundManager;
 
-    private void Awake()
-    {
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-    }
-
     // Use this for initialization
     void Start() {
         //set the BombManager gameobject for parenting bombs
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         BombManager = GameObject.Find("BombManager");
         spawnBombNow = true;
     }

@@ -8,7 +8,7 @@ public class BrickTrigger : MonoBehaviour {
 
     private void Start()
     {
-        bombController = GameObject.Find("BombController").GetComponent<BombController>();
+        bombController = GameObject.Find("BombManager").GetComponent<BombController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
