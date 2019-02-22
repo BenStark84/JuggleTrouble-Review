@@ -10,6 +10,12 @@ public class BombController : MonoBehaviour {
     public float bombSpawnTime = 10f;
     float bombSpawnTimer;
     public GameObject brickExplosionPrefab;
+    SoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
 
     // Use this for initialization
     void Start() {
@@ -48,7 +54,7 @@ public class BombController : MonoBehaviour {
         }
         //Play the Explosion and Manage AudioTracks
         GetComponent<AudioSource>().Play();
-        FindObjectOfType<SoundManager>().ChangeTrack(brickChild.transform.position.y);
+        soundManager.ChangeTrack(brickChild.transform.position.y);
         //create the brick exploding effect, destroy the brick and bomb
         Instantiate(brickExplosionPrefab, new Vector3(brickChild.transform.position.x, brickChild.transform.position.y, -10), Quaternion.identity);
         Destroy(brickChild);

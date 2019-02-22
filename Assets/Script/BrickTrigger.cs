@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class BrickTrigger : MonoBehaviour {
 
+    BombController bombController;
+
+    private void Start()
+    {
+        bombController = GameObject.Find("BombController").GetComponent<BombController>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Bomb")
         {
-            FindObjectOfType<BombController>().bombTriggered(gameObject, collision);
+            bombController.bombTriggered(gameObject, collision);
         }
     }
 

@@ -16,7 +16,16 @@ public class BrickManager : MonoBehaviour {
     Vector2[] bottomPoints = CameraBounds.bottomPoints;
     EdgeCollider2D edgeCollider;
     int startBricks;
+    BombController bombController;
+    GameOver gameOver;
+    SoundManager soundManager;
 
+    private void Awake()
+    {
+        bombController = GameObject.Find("BombController").GetComponent<BombController>();
+        gameOver = GameObject.Find("GameOver").GetComponent<GameOver>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
     // Use this for initialization
     void Start () {
         startBricks = brickPoints.Length;
@@ -60,9 +69,9 @@ public class BrickManager : MonoBehaviour {
             //call the gameover scripts
             Vector3 blastPoint = bombCollision.transform.position;
             BrickExplosion(blastPoint);
-            FindObjectOfType<BombController>().BombControllerGameOver();
-            FindObjectOfType<GameOver>().OnGameOver();
-            FindObjectOfType<SoundManager>().ChangeTrack(bombCollision.transform.position.y);
+            bombController.BombControllerGameOver();
+            gameOver.OnGameOver();
+            soundManager.ChangeTrack(bombCollision.transform.position.y);
         }
 
     }
