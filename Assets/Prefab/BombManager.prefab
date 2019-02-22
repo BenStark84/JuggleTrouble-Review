@@ -151,3 +151,4 @@ MonoBehaviour:
   bombSpawnTime: 6.54
   brickExplosionPrefab: {fileID: 1162679126232008, guid: e5f8643a5799783458890220a290f4cf,
     type: 2}
+  bombExplosionAnim: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
