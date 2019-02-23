@@ -9,6 +9,7 @@ public class BombController : MonoBehaviour {
     public static bool spawnBombNow = false;
     public float bombSpawnTime = 10f;
     float bombSpawnTimer;
+    public float spawnTimePercent;
     public GameObject brickExplosionPrefab;
     public GameObject bombExplosionAnim;
     SoundManager soundManager;
@@ -25,12 +26,32 @@ public class BombController : MonoBehaviour {
     void Update() {
         //Spawn a bomb if there are no bombs OR it has been more than .5seconds since the last bomb
         //Spawn a bomb if a bomb has not spawned in bombSpawnTime seconds (multiple bombs)
-        if ((spawnBombNow && (bombSpawnTimer > 0.5f || transform.childCount == 0)) || bombSpawnTimer > bombSpawnTime)
+        if ((spawnBombNow && (bombSpawnTimer > 1f || transform.childCount == 0)) || bombSpawnTimer > bombSpawnTime)
         {
             SpawnBomb();
             spawnBombNow = false;
         }
         bombSpawnTimer += Time.deltaTime;
+    }
+
+    private void FixedUpdate()
+    {
+        if (spawnBombNow && transform.childCount > 0)
+        {
+            spawnTimePercent = Mathf.Clamp(bombSpawnTimer / 1f,0,1);
+        }
+        else if (!spawnBombNow)
+        {
+            spawnTimePercent = Mathf.Clamp(bombSpawnTimer / bombSpawnTime, 0, 1);
+        }
+        else if (spawnBombNow && transform.childCount == 0)
+        {
+            spawnTimePercent = 1;
+        }
+        else
+        {
+            spawnTimePercent = 0;
+        }
     }
 
     public void SpawnBomb()
@@ -55,7 +76,7 @@ public class BombController : MonoBehaviour {
         //create the brick exploding effect, destroy the brick and bomb
         Instantiate(brickExplosionPrefab, new Vector3(brickChild.transform.position.x, brickChild.transform.position.y, -10), Quaternion.identity);
         Instantiate(bombExplosionAnim, new Vector3(bombChild.transform.position.x, bombChild.transform.position.y, -5), Quaternion.identity);
-        Destroy(brickChild);
+         Destroy(brickChild);
         Destroy(bombChild.gameObject);
     }
     public void BombControllerGameOver()

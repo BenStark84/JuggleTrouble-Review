@@ -63,6 +63,7 @@ public class MainMenu : MonoBehaviour {
 
     public void ExitGame()
     {
+        PlayerPrefs.Save();
         Application.Quit();
     }
 

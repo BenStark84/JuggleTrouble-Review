@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,13 @@ public class GameOver : MonoBehaviour {
     public Button startMenu;
     public Button restart;
     public Button exit;
+    public Button back;
+    public Toggle mute;
+    BombController bombbManager;
+    public GameObject progressBar;
     bool gameOver = false;
+    bool unmuteudio;
+    public AudioMixer AudioController;
     //public int highScore;
 
     private void Awake()
@@ -22,12 +29,15 @@ public class GameOver : MonoBehaviour {
         startMenu.onClick.AddListener(ReturnToStart);
         restart.onClick.AddListener(RestartGame);
         exit.onClick.AddListener(ExitGame);
+        back.onClick.AddListener(ReturnToStart);
+        int muteAudioKey = PlayerPrefs.GetInt("muteAudio", 1);
+        mute.isOn = Convert.ToBoolean(muteAudioKey);
     }
 
     // Use this for initialization
     void Start () {
         //The System Action called from the bomb controller
-
+        bombbManager = GameObject.Find("BombManager").GetComponent<BombController>();
         
 	}
 	
@@ -37,17 +47,32 @@ public class GameOver : MonoBehaviour {
         if (gameOver)
             if (Input.GetKey(KeyCode.Space))
             {
-
                     gameOver = false;
-                    SceneManager.LoadScene(0);
-                
+                    SceneManager.LoadScene(0);   
             }
-
+        if (!gameOver)
+        {
+            progressBar.GetComponent<Image>().fillAmount = bombbManager.spawnTimePercent;
+        }
     }
 
     void ReturnToStart()
     {
         SceneManager.LoadScene(0);
+    }
+    
+    public void MuteAudio(bool muteAudio)
+    {
+        int muteAudioKey = Convert.ToInt16(muteAudio);
+        PlayerPrefs.SetInt("muteAudio", muteAudioKey);
+        if (muteAudio)
+        {
+            AudioController.SetFloat("Master Volume", 0f);
+        }
+        else if (!muteAudio)
+        {
+            AudioController.SetFloat("Master Volume", -80f);
+        }
     }
 
     void RestartGame()
@@ -57,6 +82,7 @@ public class GameOver : MonoBehaviour {
 
     void ExitGame()
     {
+        PlayerPrefs.Save();
         Application.Quit();
     }
 
