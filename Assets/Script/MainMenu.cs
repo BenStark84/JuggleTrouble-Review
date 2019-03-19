@@ -15,8 +15,8 @@ public class MainMenu : MonoBehaviour {
     public AudioMixer AudioController;
     public Text HighScoreLine;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         //This will be a tutorial in the future
         //if(PlayerPrefs.GetInt("LastTutorialViewed",0) < 1)
         //{
