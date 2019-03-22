@@ -201,7 +201,7 @@ Camera:
   m_GameObject: {fileID: 128567383}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.49411765, g: 0.6784314, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -1855,48 +1855,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
---- !u!1001 &1115828515
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724934993126948, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4f20f446fd454b14c9d63d77c6688a71, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1135353780
 GameObject:
   m_ObjectHideFlags: 0
