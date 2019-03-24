@@ -10,16 +10,11 @@ public class BombTrigger : MonoBehaviour
     private void Start()
     {
         bombController = GameObject.Find("BombManager").GetComponent<BombController>();
+        activeTime = Time.timeSinceLevelLoad;
     }
     private void OnBecameInvisible()
     {
         bombController.SpawnBomb();
         Destroy(gameObject);
     }
-
-    private void FixedUpdate()
-    {
-        activeTime += Time.fixedDeltaTime;
-    }
-
 }

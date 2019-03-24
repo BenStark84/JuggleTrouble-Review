@@ -9,7 +9,9 @@ using UnityEngine.Audio;
 public class GameOver : MonoBehaviour {
 
     public GameObject gameOverScreen;
+    public GameObject gameOverUI;
     public GameObject gameScreen;
+    public Image panel;
     public Text Score;
     public Text HighScoreLine;
     public Button startMenu;
@@ -38,6 +40,7 @@ public class GameOver : MonoBehaviour {
     void Start () {
         //The System Action called from the bomb controller
         bombbManager = GameObject.Find("BombManager").GetComponent<BombController>();
+        panel.fillAmount = 0;
         
 	}
 	
@@ -53,6 +56,14 @@ public class GameOver : MonoBehaviour {
         if (!gameOver)
         {
             progressBar.GetComponent<Image>().fillAmount = bombbManager.spawnTimePercent;
+        }
+        if(gameOver && panel.fillAmount < 1)
+        {
+            Mathf.Clamp(panel.fillAmount += 0.03f,0,1);
+        }
+        else if(gameOver && panel.fillAmount == 1)
+        {
+            gameOverUI.SetActive(true);
         }
     }
 

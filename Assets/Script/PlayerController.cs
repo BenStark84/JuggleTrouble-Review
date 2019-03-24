@@ -123,7 +123,8 @@ public class PlayerController : MonoBehaviour
             float aliveTime = 0;
             foreach (Transform bomb in bombManager.transform)
             {
-                aliveTime += bomb.GetComponent<BombTrigger>().activeTime;
+                float bombActiveTime = Time.timeSinceLevelLoad - bomb.GetComponent<BombTrigger>().activeTime;
+                aliveTime += bombActiveTime;
             }
             brickManager.ScoreCalculator(bombs, aliveTime);
         }
